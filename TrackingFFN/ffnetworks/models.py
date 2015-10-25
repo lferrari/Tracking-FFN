@@ -11,7 +11,7 @@ class Domain(models.Model):
 		('DOUBLE', 'Double-Flux Networks'),
 	)
 
-	url = models.URLField(verbose_name="URL");
+	url = models.CharField(max_length=50,verbose_name="URL");
 	submit_date = models.DateField(verbose_name="Submit Date", auto_now_add=True)
 	last_seen = models.DateField(verbose_name="Last Seen")
 	live = models.BooleanField(verbose_name="Live")
@@ -52,7 +52,7 @@ class Node(models.Model):
 		(2, 'NS'),
 	)
 
-	asn = models.ForeignKey(ASN, related_name="nodes")
+	asn = models.ForeignKey(ASN, related_name="nodes", null=True, blank=True)
 	domain = models.ForeignKey(Domain, related_name="nodes")
 	ip = models.GenericIPAddressField(protocol="both", verbose_name="IP")
 	date_detected = models.DateField(verbose_name="Date Detected", auto_now_add=True)

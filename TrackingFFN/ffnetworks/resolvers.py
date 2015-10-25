@@ -10,14 +10,19 @@ def resolver():
 
 	for d in Domain.objects.filter(track=True):
 		print(d)
-		new_hosts = d.resolve()
+		answer = d.resolve()
 
-		if len(new_hosts) > 0:
+		if len(answer) > 0:
 
-			for host in new_hosts:
-				print(host)
-				#d.nodes.filter()
-
+			for rdata in answer:
+				print(rdata)
+				obj, created = Node.objects.get_or_create(domain=d, 
+													ip=rdata.to_text(), 
+													dns_registry_type=1)
+				if created:
+					print("New Host: " + rdata.to_text())
+				else: 
+					print("Host already in DB")
 	return True
 
 
