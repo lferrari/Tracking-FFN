@@ -16,6 +16,9 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 
+from ffnetworks import views
+
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^resolve/', views.call_resolver, name="resolve_domains")
 ]

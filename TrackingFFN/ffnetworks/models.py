@@ -19,8 +19,7 @@ class Domain(models.Model):
 	domain_type = models.CharField(verbose_name="Fast Flux Network Type", choices=FAST_FLUX_NETWORK_TYPE, default='SINGLE', max_length=6)
 
 
-	def resolve(self, type="A"):
-		print(type)
+	def resolve(self, type):
 		return dns.resolver.query(self.url, type)
 
 
@@ -41,7 +40,7 @@ class ASN(models.Model):
 	full_info = models.TextField(null=True,blank=True)
 
 	def __str__(self):
-		return self.number + "-" + self.as_name
+		return str(self.number) + "-" + str(self.country)
 
 
 
@@ -57,6 +56,8 @@ class Node(models.Model):
 	ip = models.GenericIPAddressField(protocol="both", verbose_name="IP")
 	date_detected = models.DateField(verbose_name="Date Detected", auto_now_add=True)
 	dns_registry_type = models.CharField(verbose_name="DNS Registry Type", choices=DNS_REGISTRY_TYPE, max_length="2")
+
+	submit_date = models.DateField(verbose_name="Submit Date", auto_now_add=True, blank=True)
 
 	def __str__(self):
 		return self.ip

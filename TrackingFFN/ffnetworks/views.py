@@ -1,3 +1,15 @@
 from django.shortcuts import render
+from django.http import HttpResponse
 
-# Create your views here.
+from ffnetworks.resolvers import resolver
+
+
+
+def call_resolver(request):
+
+	resolver()
+
+	return HttpResponse("OK")
+
+
+
